@@ -26,6 +26,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\6253540\Source\Repos\test-1-beebuzz-Malik1234567891011\BeeBuzz
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/6253540/Source/Repos/test-1-beebuzz-Malik1234567891011/BeeBuzz/Areas/Identity/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/6253540/Source/Repos/test-1-beebuzz-Malik1234567891011/BeeBuzz/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

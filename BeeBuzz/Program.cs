@@ -7,8 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. MVC
+// 1. MVC + Razor Pages
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();   
 
 // 2. DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -38,7 +39,6 @@ using (var scope = app.Services.CreateScope())
     await DataSeeder.SeedAsync(services);
 }
 
-
 // 6. Middleware
 if (!app.Environment.IsDevelopment())
 {
@@ -51,11 +51,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();  
+app.UseAuthentication();
 app.UseAuthorization();
 
+// 7. Routes
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();   
 
 app.Run();
