@@ -11,10 +11,10 @@ One user will have multiple bee hives to manage.
 A bee hive will have : location/ address, status (active/inactive), reason for deactivation(dead, sold)
 
 To do:
-1. Make the application runnable. (2%)
-2. Add the Identity middleware (2%)
-2. Create the entities for User, Organization, Beehive (2%)
-3. Create the specific repos for the entities (2%)
+1. Make the application runnable. (2%) not done
+2. Add the Identity middleware (2%) done
+2. Create the entities for User, Organization, Beehive (2%) done
+3. Create the specific repos for the entities (2%) 
 4. Seed some data with an Admin user that is part of an initial <br/> 
    0000-0000-0000-0000 Organization and a Default and Admin roles available. (3%)
 5. Change the Registration page to add an Organization and the Default role to user (3%)

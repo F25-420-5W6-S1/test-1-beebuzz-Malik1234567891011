@@ -1,13 +1,18 @@
-﻿using BeeBuzz.Data.Interfaces;
-using BeeBuzz.Data.Repositories;
+﻿using BeeBuzz.Data.Entities;
+using System;
+using System.Collections.Generic;
 
-namespace BeeBuzz.Data
+namespace BeeBuzz.Data.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
-    {        
-        T GetRepository<T>() where T : class;
-        //DutchProductRepository ProductRepository { get; }
-        //DutchOrderRepository OrderRepository { get; }
-        //DutchOrderItemRepository OrderItemRepository { get; }
+    public interface IUnitOfWork
+    {
+        IBeeBuzzGenericRepository<ApplicationUser> Users { get; }
+        IBeeBuzzGenericRepository<Organization> Organizations { get; }
+        IBeeBuzzGenericRepository<Beehive> Beehives { get; }
+
+        IEnumerable<ApplicationUser> GetUsersByOrganization(Guid orgId);
+        IEnumerable<Beehive> GetBeehivesByOrganization(Guid orgId);
+
+        void Complete();
     }
 }

@@ -1,13 +1,16 @@
+using System;
 
-
-namespace B.Data.Entities;
-
-public class Beehive
+namespace BeeBuzz.Data.Entities
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public decimal Price { get; set; }
-    public int CategoryId { get; set; }
-    public Category? Category { get; set; }
-}
+    public class Beehive
+    {
+        public Guid Id { get; set; }
+        public string Location { get; set; } = string.Empty;
+        public string Status { get; set; } = "Active"; // Active/Inactive
+        public string? DeactivationReason { get; set; } // Dead/Sold
+        public string Name { get; set; } = string.Empty;
 
+        public string UserId { get; set; } = string.Empty;
+        public ApplicationUser Owner { get; set; } = default!;
+    }
+}

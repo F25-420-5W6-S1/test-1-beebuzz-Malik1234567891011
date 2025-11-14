@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/Users/user/RiderProjects/BeeBuzz/BeeBuzz/BeeBuzz.csproj": {}
+    "C:\\Users\\6253540\\Source\\Repos\\test-1-beebuzz-Malik1234567891011\\BeeBuzz\\BeeBuzz.csproj": {}
   },
   "projects": {
-    "/Users/user/RiderProjects/BeeBuzz/BeeBuzz/BeeBuzz.csproj": {
+    "C:\\Users\\6253540\\Source\\Repos\\test-1-beebuzz-Malik1234567891011\\BeeBuzz\\BeeBuzz.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/user/RiderProjects/BeeBuzz/BeeBuzz/BeeBuzz.csproj",
+        "projectUniqueName": "C:\\Users\\6253540\\Source\\Repos\\test-1-beebuzz-Malik1234567891011\\BeeBuzz\\BeeBuzz.csproj",
         "projectName": "BeeBuzz",
-        "projectPath": "/Users/user/RiderProjects/BeeBuzz/BeeBuzz/BeeBuzz.csproj",
-        "packagesPath": "/Users/user/.nuget/packages/",
-        "outputPath": "/Users/user/RiderProjects/BeeBuzz/BeeBuzz/obj/",
+        "projectPath": "C:\\Users\\6253540\\Source\\Repos\\test-1-beebuzz-Malik1234567891011\\BeeBuzz\\BeeBuzz.csproj",
+        "packagesPath": "C:\\Users\\6253540\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\6253540\\Source\\Repos\\test-1-beebuzz-Malik1234567891011\\BeeBuzz\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/user/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\6253540\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,6 +49,28 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "Microsoft.IdentityModel.Logging": {
+              "target": "Package",
+              "version": "[8.14.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -61,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

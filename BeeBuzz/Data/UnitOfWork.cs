@@ -1,47 +1,33 @@
-﻿using System.Xml.Serialization;
+﻿using BeeBuzz.Data.Entities;
+using BeeBuzz.Data.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace BeeBuzz.Data
+namespace BeeBuzz.Data.Repositories
 {
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
-        private ApplicationDbContext _context;
-        private readonly IRepositoryProvider _repositoryProvider;
-        //private ILogger<DutchProductRepository> _loggerProduct;
-        //private DutchProductRepository _productRepository;
+        private readonly ApplicationDbContext _context;
 
-        public UnitOfWork(ApplicationDbContext context, IRepositoryProvider provider, ILoggerFactory loggerFactory) 
+        public IBeeBuzzGenericRepository<ApplicationUser> Users { get; }
+        public IBeeBuzzGenericRepository<Organization> Organizations { get; }
+        public IBeeBuzzGenericRepository<Beehive> Beehives { get; }
+
+        public UnitOfWork(ApplicationDbContext context)
         {
-            //_loggerOrder = new Logger<DutchOrderRepository>(loggerFactory);
-            //_loggerProduct = new Logger<DutchProductRepository>(loggerFactory);
             _context = context;
-            _repositoryProvider = provider;
+            Users = new BeeBuzzGenericRepository<ApplicationUser>(_context);
+            Organizations = new BeeBuzzGenericRepository<Organization>(_context);
+            Beehives = new BeeBuzzGenericRepository<Beehive>(_context);
         }
 
-        public T GetRepository<T>() where T : class
-        {
-            return _repositoryProvider.GetRepository<T>();
-        }
-        
-        private bool disposedValue;
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-                disposedValue = true;
-            }
-        }
+        public IEnumerable<ApplicationUser> GetUsersByOrganization(Guid orgId) =>
+            Users.GetAll().Where(u => u.OrganizationId == orgId);
 
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+        public IEnumerable<Beehive> GetBeehivesByOrganization(Guid orgId) =>
+            Beehives.GetAll().Where(b => b.Owner.OrganizationId == orgId);
 
-        
+        public void Complete() => _context.SaveChanges();
     }
 }

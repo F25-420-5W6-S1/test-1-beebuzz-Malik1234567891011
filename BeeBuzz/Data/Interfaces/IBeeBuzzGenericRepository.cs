@@ -1,6 +1,6 @@
 ﻿namespace BeeBuzz.Data.Interfaces
 {
-    public interface IBeeBuzzGenericRepository<T>
+    public interface IBeeBuzzGenericRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
         T GetById(object id);
