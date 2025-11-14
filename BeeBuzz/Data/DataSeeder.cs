@@ -1,45 +1,79 @@
-﻿using BeeBuzz.Data.Entities;
+﻿using System;
+using System.Threading.Tasks;
+using BeeBuzz.Data.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BeeBuzz.Data
 {
     public static class DataSeeder
     {
-        public static async Task SeedAsync(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedAsync(IServiceProvider services)
         {
-            // Add roles
-            var roles = new[] { "Admin", "Default" };
-            foreach (var role in roles)
+            var context = services.GetRequiredService<ApplicationDbContext>();
+            var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            // Apply pending migrations
+            await context.Database.MigrateAsync();
+
+            const string adminRole = "Admin";
+            const string defaultRole = "Default";
+
+            // Roles
+            if (!await roleManager.RoleExistsAsync(adminRole))
             {
-                if (!await roleManager.RoleExistsAsync(role))
-                    await roleManager.CreateAsync(new IdentityRole(role));
+                await roleManager.CreateAsync(new IdentityRole(adminRole));
             }
 
-            // Add initial organization
-            var org = new Organization
+            if (!await roleManager.RoleExistsAsync(defaultRole))
             {
-                Id = Guid.Parse("00000000-0000-0000-0000-000000000000"),
-                Name = "Initial Organization"
-            };
+                await roleManager.CreateAsync(new IdentityRole(defaultRole));
+            }
 
-            if (!context.Organizations.Any(o => o.Id == org.Id))
+            // Initial organization "0000-0000-0000-0000"
+            const string initialOrgName = "0000-0000-0000-0000";
+            var org = await context.Organizations
+                .FirstOrDefaultAsync(o => o.Name == initialOrgName);
+
+            if (org == null)
             {
+                org = new Organization
+                {
+                    Id = Guid.NewGuid(),
+                    Name = initialOrgName
+                };
                 context.Organizations.Add(org);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
 
-            // Add admin user
-            var adminEmail = "admin@beebuzz.com";
-            if (await userManager.FindByEmailAsync(adminEmail) == null)
+            // Admin user
+            const string adminEmail = "admin@beebuzz.com";
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+            if (adminUser == null)
             {
-                var adminUser = new ApplicationUser
+                adminUser = new ApplicationUser
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
+                    EmailConfirmed = true,
                     OrganizationId = org.Id
                 };
-                await userManager.CreateAsync(adminUser, "Admin123!");
-                await userManager.AddToRoleAsync(adminUser, "Admin");
+
+                // Password matches your relaxed Identity options (min length 4)
+                var result = await userManager.CreateAsync(adminUser, "Admin123!");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, adminRole);
+                    await userManager.AddToRoleAsync(adminUser, defaultRole);
+                }
+                else
+                {
+                    // If you want, log or inspect result.Errors in debug
+                }
             }
         }
     }

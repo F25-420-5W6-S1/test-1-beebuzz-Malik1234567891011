@@ -31,7 +31,13 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
-// 5.  later seeding 
+// 5. Seeding (roles, admin, initial organization)
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await DataSeeder.SeedAsync(services);
+}
+
 
 // 6. Middleware
 if (!app.Environment.IsDevelopment())
