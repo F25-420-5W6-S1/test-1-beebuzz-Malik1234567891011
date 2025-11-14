@@ -1,4 +1,5 @@
-﻿
+﻿using System.Xml.Serialization;
+
 namespace BeeBuzz.Data
 {
     public class UnitOfWork: IUnitOfWork
