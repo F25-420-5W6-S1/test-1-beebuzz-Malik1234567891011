@@ -16,10 +16,10 @@ namespace BeeBuzz.Data
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
             // Apply pending migrations
-            // await context.Database.MigrateAsync();
-            //the migrations are broken im super annoyed im skippingit for now
-            await context.Database.EnsureDeletedAsync();
-            await context.Database.EnsureCreatedAsync();
+            await context.Database.MigrateAsync();
+            //the migrations are broken im super annoyed im skippingit for now (nevermind i fixed kinda)
+           // await context.Database.EnsureDeletedAsync();
+            //await context.Database.EnsureCreatedAsync();
 
             const string adminRole = "Admin";
             const string defaultRole = "Default";
